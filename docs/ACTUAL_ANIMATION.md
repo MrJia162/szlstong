@@ -6,7 +6,7 @@
 - 原入口：`index.html`。原 `src/App.tsx`、`src/simulation/`、`src/scene/`、`src/ui/`、`src/spatial/`、`vite.config.ts`、`dist/` 均不修改。
 - 新源码集中在 `src/actual/`，使用独立的 `ActualSimulation` 与 `vite.actual.config.ts`。
 - 原 `npm run build` 保留；GitHub Actions 依次构建原演示、新动画，发布合并产物 `dist-actual/`。
-- 在线入口：[实际产线](https://yuhaoxiong.github.io/recycling-mrf-digital-twin/actual.html)、[原演示](https://yuhaoxiong.github.io/recycling-mrf-digital-twin/)。推送 `main` 后自动部署，也可手动触发工作流。
+- 在线入口：[实际产线](https://mrjia162.github.io/recycling-mrf-digital-twin/actual.html)、[原演示](https://mrjia162.github.io/recycling-mrf-digital-twin/)。推送 `main` 后自动部署，也可手动触发工作流。
 - 按用户发布要求，仓库仅收录 `actual-assets/plant-review.glb`（约 5.8 MB 的轻量 CAD 网格）；原始 STEP、本地核查资料和其他试验模型不上传。浏览器可下载公开网格。
 
 ## 运行
