@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-vi.mock('../src/actual/ActualScene', () => ({ default: () => <div>实际 CAD 场景</div> }));
+vi.mock('../src/actual/ActualScene', () => ({
+  default: ({ view }: { view?: string }) => <div>{`实际 CAD 场景 ${view ?? ''}`}</div>,
+}));
 import ActualApp from '../src/actual/ActualApp';
 afterEach(cleanup);
 
@@ -11,7 +13,7 @@ describe('独立实际产线入口', () => {
     fireEvent.click(screen.getByRole('button', { name: '暂停' }));
     fireEvent.change(screen.getByLabelText('选择实际设备'), { target: { value: 'E11' } });
     expect(screen.getByRole('heading', { name: /E11.*螺旋上料机/ })).toBeDefined();
-    expect(screen.getByRole('button', { name: '聚焦设备' }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByText('实际 CAD 场景 focus')).toBeDefined();
     fireEvent.click(screen.getByRole('checkbox', { name: '模拟设备启用' }));
     expect(screen.getAllByText('已停用').length).toBeGreaterThan(0);
     fireEvent.change(screen.getByLabelText('实际产线时间轴'), { target: { value: '100' } });

@@ -38,7 +38,7 @@ describe.skipIf(!built)('发布产物自包含', () => {
 
   it('不含 sourcemap 引用，标题与语言正确', () => {
     expect(bundle).not.toMatch(/sourceMappingURL=/u);
-    expect(indexHtml).toContain('<title>RELOOP MRF · 可回收物分拣中心数字孪生</title>');
+    expect(indexHtml).toContain('<title>桐乡分拣中心 · 室内再生资源分拣数字孪生</title>');
     expect(indexHtml).toContain('lang="zh-CN"');
   });
 

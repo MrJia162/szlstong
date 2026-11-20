@@ -2,9 +2,9 @@
 
 面向客户交流的可回收物分拣中心三维数字孪生：一座完整厂房、两条分拣线、四类可回收物、进出货双向物流，以及按约 130 秒班次无缝循环的全流程动画。设备可点选查看状态与读数，参数干预默认关闭、开启后真实改变仿真结果。
 
-[在线演示（GitHub Pages）](https://mrjia162.github.io/recycling-mrf-digital-twin/actual.html)  · [完整复现提示](./docs/RECREATE_PROMPT.zh-CN.md) · [发布验证记录](./docs/VALIDATION.md)
+[在线演示（GitHub Pages）](https://mrjia162.github.io/szlstong/index.html)  · [完整复现提示](./docs/RECREATE_PROMPT.zh-CN.md) · [发布验证记录](./docs/VALIDATION.md)
 
-[桐乡实际产线运行动画](https://mrjia162.github.io/recycling-mrf-digital-twin/actual.html)：基于实际 CAD 和已确认的 17 台设备工艺，提供独立动画、料仓联锁与共用打包流程。原演示保持独立，详见[实际产线说明](./docs/ACTUAL_ANIMATION.md)。
+[桐乡实际产线运行动画](https://mrjia162.github.io/szlstong/index.html)：基于实际 CAD 和已确认的 17 台设备工艺，提供独立动画、料仓联锁与共用打包流程。原演示保持独立，详见[实际产线说明](./docs/ACTUAL_ANIMATION.md)。
 
 **这是面向客户的概念演示，不是分选设备的控制或监控系统。** 所有产能、识别率、节拍、吨位都是演示设定；光学分选与高光谱识别不接真实传感器、模型或 PLC / MES / WMS / 称重系统；机械臂抓取是动画概念，不是运动学或抓取力学仿真；叉车按预设航点行驶，没有自动调度、实时避障或碰撞物理。
 
@@ -56,7 +56,7 @@
 使用 Node.js 22 或更新版本，以及支持 WebGL 的现代浏览器。
 
 ```sh
-cd recycling-mrf-digital-twin
+cd szlstong
 npm ci
 npm run dev -- --host 127.0.0.1 --port 5199 --strictPort
 ```
@@ -77,12 +77,12 @@ npm run preview -- --host 127.0.0.1 --port 5200 --strictPort
 
 | 位置 | 地址 | 用途 |
 | --- | --- | --- |
-| 仓库 | [github.com/yuhaoxiong/recycling-mrf-digital-twin](https://github.com/yuhaoxiong/recycling-mrf-digital-twin) | 源码与发布产物 |
-| 在线站点 | [mrjia162.github.io/recycling-mrf-digital-twin/actual.html](https://mrjia162.github.io/recycling-mrf-digital-twin/actual.html) | 免安装、点开即看（GitHub Pages，HTTPS） |
+| 仓库 | [github.com/MrJia162/szlstong](https://github.com/MrJia162/szlstong) | 源码与发布产物 |
+| 在线站点 | [mrjia162.github.io/szlstong/index.html](https://mrjia162.github.io/szlstong/index.html) | 免安装、点开即看（GitHub Pages，HTTPS） |
 
-发布方式是 GitHub Actions，工作流在 `.github/workflows/deploy.yml`：推到 `main` 后自动 `npm ci` → `npm run build` → `npm test` → 上传 `dist/` → 发布到 Pages。**先构建再测试**，是为了让 `tests/dist.test.ts` 那组「发布产物自包含」断言真正执行——缺 `dist/` 时它们会被静默跳过。
+发布方式是 GitHub Actions，工作流在 `.github/workflows/deploy.yml`：推到 `main` 后自动 `npm ci` → `npm run build` → `npm run build:actual` → `npm test` → 上传 `dist-actual/` → 发布到 Pages。**先构建再测试**，是为了让 `tests/dist.test.ts` 那组「发布产物自包含」断言真正执行——缺 `dist/` 时它们会被静默跳过。
 
-只想发到自己的服务器时，不需要 Actions：`npm run build` 产物就是 `dist/` 三个文件，用任意静态服务器指向它即可（nginx 需要 `try_files $uri $uri/ /index.html;`）。不要用 `file://` 直接双击 `dist/index.html`，ES module 需要 HTTP。
+只想发到自己的服务器时，不需要 Actions：先 `npm run build` 再 `npm run build:actual`，把 `dist-actual/`（含 `actual-assets/`）交给任意静态服务器即可（nginx 需要 `try_files $uri $uri/ /index.html;`）。不要用 `file://` 直接双击 `.html`，ES module 需要 HTTP。
 
 
 操作：**打开即为「自由视角」**，鼠标左键拖动旋转、滚轮缩放即可绕着厂房看；点「俯瞰全厂」回到标准机位，选中设备后可点「跟随选中设备」推到近景。点击设备查看状态；快捷键 `空格` 播放/暂停、`1/2/4` 切换倍速、`R` 复位、`Esc` 取消选中。

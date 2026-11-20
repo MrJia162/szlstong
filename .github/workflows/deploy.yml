@@ -1,5 +1,5 @@
 # 推到 main 即自动构建并发布到 GitHub Pages。
-# 站点地址：https://yuhaoxiong.github.io/recycling-mrf-digital-twin/
+# 站点地址：https://mrjia162.github.io/szlstong/
 #
 # 为什么先 build 再 test：tests/dist.test.ts 会检查 dist/ 里的发布产物是否自包含，
 # 先构建才能让那组断言真正执行（缺 dist 时它们会被 skipIf 静默跳过）。
